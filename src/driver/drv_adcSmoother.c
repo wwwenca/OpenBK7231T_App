@@ -42,6 +42,8 @@ void ADCSmoother_AppendSample(int val) {
 }
 float ADCSmoother_Sample() {
 	float s = 0;
+	g_min = -1;
+	g_max = -1;
 	for (int i = 0; i < g_samplesCount; i++) {
 		s += g_samples[i];
 		g_min = g_min == -1 ? g_samples[i] : MIN(g_min, g_samples[i]);
@@ -91,7 +93,7 @@ commandResult_t Cmd_SetupADCSmoother(const void* context, const char* cmd, const
 
 void DRV_ADCSmoother_Init() {
 
-	//cmddetail:{"name":"ADCSmoother","args":"[Pindex] [TotalSamples] [SampleIntervalMS] [TargetChannelADCValue] [MarginValue] [TargetChannel0or1]",
+	//cmddetail:{"name":"ADCSmoother","args":"[Pindex] [TotalSamples] [SampleIntervalMS] [TargetChannelADCValue] [MarginValue] [TargetChannel0or1] [TargetChannelMin] [TargetChannelMax]",
 	//cmddetail:"descr":"Starts the ADC smoother with given configuration",
 	//cmddetail:"fn":"NULL);","file":"driver/drv_adcSmoother.c","requires":"",
 	//cmddetail:"examples":""}
